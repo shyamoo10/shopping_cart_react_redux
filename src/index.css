@@ -47,3 +47,14 @@
   width: 100px;
   height: 100px;
  }
+.cartComponent  img{
+     width: 100px;
+} 
+
+.cartComponent{
+  border: 2px solid yellow;
+}
+.cart{
+  display:flex;
+  gap: 20rem;
+}

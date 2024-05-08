@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useFetch from '../Hooks/fetch'
 import { Header } from './Header'
@@ -14,11 +14,17 @@ export const CardDetails = () => {
     const dispatch= useDispatch()
      const  {id} = useParams()
    const {data,isLoading,error}=useFetch(`https://fakestoreapi.com/products/category/jewelery`)
-   const handleSubmit=(singleData)=>{
-        dispatch(addProduct(singleData))
+   const handleSubmit=(singleData,price)=>{
+            let totalPrice=  parseInt( price * count ) 
+            const Finaldata={...singleData,totalPrice:totalPrice}
+             
+        dispatch(addProduct({Finaldata}))
        
    }
-
+    useEffect(()=>{
+     console.log(cartArray)
+    },[cartArray]) 
+    
   return (
  <div  className='cardDetails'>
      <Header/>
@@ -44,7 +50,7 @@ export const CardDetails = () => {
                            <input type="number"  value={count} onChange={(e)=>dispatch(manual(e.target.value)) } />
                             <button onClick={()=> dispatch(increment())}>+</button>
                              
-                            <button  onClick={()=>handleSubmit(singleData) }>Add to Cart</button>
+                            <button  onClick={()=>handleSubmit(singleData,singleData.price) }>Add to Cart</button>
                         </div>
                        
                         
